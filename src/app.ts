@@ -5,9 +5,10 @@ console.log('#19. TypeScript homework example file')
  * Задача: Розробити функцію `sumArray`, яка приймає масив чисел і повертає їх суму.
  */
 
-function sumArray (numbers: number[]): number {
-    return numbers.reduce((sum, num) => sum + num, 0);
+function sumArray(numbers: number[]): number {
+    return numbers.reduce((prevNum, currentNum) => prevNum + currentNum, 0);
 }
+
 // Вивід до консолі для демонстрації
 console.log(sumArray([1, 2, 3, 4])) // Повинно вивести 10
 console.log(sumArray([])) // Повинно вивести 0
@@ -24,34 +25,33 @@ type User = {
 }
 
 function createUser(name: string, age: number, isActive: boolean = true): User {
-    let object: User = {name, age, isActive};
-    return object;
+    let newUser: User = {name, age, isActive};
+    return newUser;
 }
 
-const newUser = createUser('Анна', 25, false)
+const newUser = createUser('Анна', 25, true);
 console.log(newUser)
 
 /*
  * #3
- *
  * Задача: Розробити функцію getOrderStatus, яка приймає статус замовлення як параметр і повертає рядок з описом статусу.
  */
 
 enum OrderStatus {
-    Pending = "Замовлення очікує на обробку",
-    Shipped = "Замовлення було відправлено",
-    Delivered = "Замовлення доставлено",
-    Cancelled = "Замовлення скасовано"
+    Pending = 'Замовлення очікує на обробку',
+    Shipped = 'Замовлення було відправлено',
+    Delivered = 'Замовлення доставлено',
+    Cancelled = 'Замовлення скасовано',
 }
 
 function getOrderStatus(status: OrderStatus): string {
-    if (status !== OrderStatus.Pending && status !== OrderStatus.Shipped && status !== OrderStatus.Delivered && status !== OrderStatus.Cancelled) {
-        let error: string = "Невідомий статус замовлення"
-        throw new Error(error);
+    if (Object.values(OrderStatus).includes(status)) {
+        return status;
     } else {
-        return `${status}`;
+        throw new Error ('Невідомий статус замовлення');
     }
 }
+
 
 // Приклад виклику функції
 console.log(getOrderStatus(OrderStatus.Pending))
